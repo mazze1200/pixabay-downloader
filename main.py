@@ -1,5 +1,4 @@
-#%%
-
+#!/usr/bin/env python3
 import requests
 import json
 import os
@@ -77,11 +76,10 @@ def get_random_picture(dir):
     
     return random.choice(files_list)
 
+
 # credentials = read_credentials(".credentials.json")
 # pixaday = get_pixabay_images(credentials)
 # write_pixaday(pixaday)
-
-
 # pixaday = read_pixaday()
 # output_path = download_new_picture("photos", pixaday["hits"])
 # print(output_path)
@@ -96,9 +94,12 @@ parser.add_argument('ouput_folder')
 args = parser.parse_args()
 output_path = None
 
-# credentials = read_credentials(args.credentials_file)
-# pixaday = get_pixabay_images(credentials)
-# output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+try:
+    credentials = read_credentials(args.credentials_file)
+    pixaday = get_pixabay_images(credentials)
+    output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+except:
+    pass
 
 if not output_path:
     output_path = get_random_picture(args.ouput_folder)
