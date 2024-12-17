@@ -1,6 +1,9 @@
-# Downloader for pixaday photos
+# Downloader for pixabay photos
+
+## Credentials file
+{"apikey": "<your pixabay API key>"}
 
 # Usage
 ```code
-$ python3 main.py $PWD/.credentials.json $PWD/photos/
+$ main.py ~/.pixabay-credentials.json ~/pixabay 
 ```

@@ -28,12 +28,12 @@ def get_pixabay_images(credentials):
     resp = requests.get(url=url, params=params)
     return resp.json() 
 
-def write_pixaday(data):
-    with open("pixaday.json", "w") as f:
+def write_pixabay(data):
+    with open("pixabay.json", "w") as f:
         f.write(json.dumps(data))
 
-def read_pixaday():
-    with open("pixaday.json", "r") as f:
+def read_pixabay():
+    with open("pixabay.json", "r") as f:
         return json.loads(f.read())
     
 
@@ -81,16 +81,16 @@ def get_random_picture(dir):
 
 
 # credentials = read_credentials(".credentials.json")
-# pixaday = get_pixabay_images(credentials)
-# write_pixaday(pixaday)
-# pixaday = read_pixaday()
-# output_path = download_new_picture("photos", pixaday["hits"])
+# pixabay = get_pixabay_images(credentials)
+# write_pixabay(pixabay)
+# pixabay = read_pixabay()
+# output_path = download_new_picture("photos", pixabay["hits"])
 # print(output_path)
 
 logger = logging.getLogger()
 parser = argparse.ArgumentParser(
-                    prog='pixaday Downloader',
-                    description='This script downloads pixaday picutes')
+                    prog='pixabay Downloader',
+                    description='This script downloads pixabay picutes')
 
 parser.add_argument('credentials_file')
 parser.add_argument('ouput_folder')
@@ -99,8 +99,8 @@ output_path = None
 
 try:
     credentials = read_credentials(args.credentials_file)
-    pixaday = get_pixabay_images(credentials)
-    output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+    pixabay = get_pixabay_images(credentials)
+    output_path = download_new_picture(args.ouput_folder, pixabay["hits"])
 except Exception as e:
    logger.error('Error at %s', 'division', exc_info=e)
 
