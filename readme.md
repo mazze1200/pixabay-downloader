@@ -1,7 +1,7 @@
 # Downloader for pixabay photos
 
 ## Credentials file
-{"apikey": "<your pixabay API key>"}
+{"apikey": "your pixabay API key"}
 
 # Usage
 ```code
