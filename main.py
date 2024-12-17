@@ -5,6 +5,8 @@ import json
 import os
 from urllib.parse import urlparse
 import argparse
+import glob
+import random
 
 def read_credentials(path):
     with open(path) as f:
@@ -65,6 +67,16 @@ def download_new_picture(output_dir_path, hits):
     return None
 
 
+def get_random_picture(dir):
+    extensions = ('.jpg', '.png')
+    dir_pattern = '/**/*'
+    files_list = []
+    for ext in extensions:
+        pattern = f"{dir}{dir_pattern}{ext}"
+        files_list.extend(glob.glob(pattern, recursive=True))
+    
+    return random.choice(files_list)
+
 # credentials = read_credentials(".credentials.json")
 # pixaday = get_pixabay_images(credentials)
 # write_pixaday(pixaday)
@@ -82,9 +94,14 @@ parser = argparse.ArgumentParser(
 parser.add_argument('credentials_file')
 parser.add_argument('ouput_folder')
 args = parser.parse_args()
+output_path = None
 
-credentials = read_credentials(args.credentials_file)
-pixaday = get_pixabay_images(credentials)
-output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+# credentials = read_credentials(args.credentials_file)
+# pixaday = get_pixabay_images(credentials)
+# output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+
+if not output_path:
+    output_path = get_random_picture(args.ouput_folder)
+
 print(output_path)
 
