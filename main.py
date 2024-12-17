@@ -4,9 +4,10 @@ import requests
 import json
 import os
 from urllib.parse import urlparse
+import argparse
 
-def read_credentials():
-    with open(".credentials.json") as f:
+def read_credentials(path):
+    with open(path) as f:
         return json.loads(f.read())
 
 
@@ -64,13 +65,26 @@ def download_new_picture(output_dir_path, hits):
     return None
 
 
-# credentials = read_credentials()
+# credentials = read_credentials(".credentials.json")
 # pixaday = get_pixabay_images(credentials)
 # write_pixaday(pixaday)
 
 
-pixaday = read_pixaday()
-output_path = download_new_picture("photos", pixaday["hits"])
-print(output_path)
+# pixaday = read_pixaday()
+# output_path = download_new_picture("photos", pixaday["hits"])
+# print(output_path)
 
+
+parser = argparse.ArgumentParser(
+                    prog='pixaday Downloader',
+                    description='This script downloads pixaday picutes')
+
+parser.add_argument('credentials_file')
+parser.add_argument('ouput_folder')
+args = parser.parse_args()
+
+credentials = read_credentials(args.credentials_file)
+pixaday = get_pixabay_images(credentials)
+output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
+print(output_path)
 
