@@ -73,8 +73,11 @@ def get_random_picture(dir):
     for ext in extensions:
         pattern = f"{dir}{dir_pattern}{ext}"
         files_list.extend(glob.glob(pattern, recursive=True))
-    
-    return random.choice(files_list)
+
+    if len(files_list) > 0:
+        return random.choice(files_list)
+    else:
+        return ""
 
 
 # credentials = read_credentials(".credentials.json")
@@ -103,6 +106,9 @@ except Exception as e:
 
 if not output_path:
     output_path = get_random_picture(args.ouput_folder)
+
+if not output_path:
+    logger.error('Could not open a picture in %s', args.ouput_folder)
 
 print(output_path)
 
