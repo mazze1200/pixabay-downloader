@@ -23,7 +23,6 @@ def get_pixabay_images(credentials):
         min_width=1920,
         min_height=1080,
         editors_choice=True,
-        order="latest"
     )
 
     resp = requests.get(url=url, params=params)
