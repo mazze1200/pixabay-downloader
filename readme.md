@@ -5,5 +5,5 @@
 
 # Usage
 ```code
-$ main.py ~/.pixabay-credentials.json ~/pixabay 
+$ pixabay.py ~/.pixabay-credentials.json ~/pixabay 
 ```
