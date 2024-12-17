@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 import argparse
 import glob
 import random
+import logging
 
 def read_credentials(path):
     with open(path) as f:
@@ -84,7 +85,7 @@ def get_random_picture(dir):
 # output_path = download_new_picture("photos", pixaday["hits"])
 # print(output_path)
 
-
+logger = logging.getLogger()
 parser = argparse.ArgumentParser(
                     prog='pixaday Downloader',
                     description='This script downloads pixaday picutes')
@@ -98,8 +99,8 @@ try:
     credentials = read_credentials(args.credentials_file)
     pixaday = get_pixabay_images(credentials)
     output_path = download_new_picture(args.ouput_folder, pixaday["hits"])
-except:
-    pass
+except Exception as e:
+   logger.error('Error at %s', 'division', exc_info=e)
 
 if not output_path:
     output_path = get_random_picture(args.ouput_folder)
