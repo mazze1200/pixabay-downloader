@@ -43,7 +43,7 @@ def download_file(url, output):
         for chunk in response.iter_content(chunk_size=10 * 1024):
             file.write(chunk)
 
-def download_new_picture(output_dir_path, hits):
+def download_new_picture(logger, output_dir_path, hits):
     for hit in hits:
         hit_directory = os.path.join(output_dir_path,str(hit["id"]))
         if not os.path.exists(hit_directory):
@@ -60,6 +60,8 @@ def download_new_picture(output_dir_path, hits):
 
             output_path = os.path.join(hit_directory, page_name + extension)
             download_file(download_url, output_path)
+
+            logger.info(f"Downloaded: {output_path}")
 
             return output_path
         
@@ -100,7 +102,7 @@ output_path = None
 try:
     credentials = read_credentials(args.credentials_file)
     pixabay = get_pixabay_images(credentials)
-    output_path = download_new_picture(args.ouput_folder, pixabay["hits"])
+    output_path = download_new_picture(logger, args.ouput_folder, pixabay["hits"])
 except Exception as e:
    logger.error('Error at %s', 'division', exc_info=e)
 
